@@ -45,11 +45,8 @@ mov al, 2 ;number of sectors to read
 mov ah, 2 
 int 0x13
 
-;switch to protected mode
-cli
-
-
-
+;absolute jmp to physical address of kernel code
+jmp 0x00000500
 
 ;padding and setting magic number
 times (510 - ($ - $$)) db 0x90
