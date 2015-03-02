@@ -1,17 +1,10 @@
+#include <stdint.h>
 /*poits to left top character*/
 char *video_mem = 0xb8000;
 /*points to right bottom character*/
 char *end_mem  = 0xb8f9e;
 int cur_ptr=0;
 
-/*screen is 80x25*/
-void clear_screen() {
-    int i;
-    for (i = 0; i < 160*25; i+=2) {
-        video_mem[i] = ' ';
-        video_mem[i+1] = 0x7;
-    }
-}
 
 void scroll(n) {
     int i;
@@ -35,6 +28,7 @@ void scroll(n) {
         i+=2;
     }
 }
+
 
 void print_message(const char *msg) {
     int i, j = 0;
@@ -66,6 +60,16 @@ void print_message(const char *msg) {
     cur_ptr = i;
 }
 
+
+/*screen is 80x25*/
+void clear_screen() {
+    int i;
+    for (i = 0; i < 160*25; i+=2) {
+        video_mem[i] = ' ';
+        video_mem[i+1] = 0x7;
+    }
+}
+
 void sleep()
 {
     int i = 0;
@@ -79,6 +83,8 @@ int main()
 {
     int i = 0;
     clear_screen();
+    //b 0x787
+    init_interrupt_table();
     for (i = 0; i < 40; i++) {
         print_message("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         sleep();
