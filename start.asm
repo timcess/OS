@@ -7,6 +7,8 @@ call enter_protected
 [BITS 32]
 mov ax, 0x10
 mov ds, ax
+mov ax, 0x18
+mov ss, ax
 call main
 hung:
 jmp hung
